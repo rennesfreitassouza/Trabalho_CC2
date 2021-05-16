@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TrabalhoConfig(AppConfig):
+class GameLibConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'trabalho'
+    name = 'game_lib'
