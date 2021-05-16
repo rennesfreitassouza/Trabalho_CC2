@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-#import environ
+import environ
 
-
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,13 +85,14 @@ WSGI_APPLICATION = 'Trabalho_CC2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':	'trabalho_cc2',
-        'USER':	'root',
-        'PASSWORD': 'teste61@',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'NAME':	env.str('TRABALHO_CC2_DB'),
+        'USER':	env.str('TRABALHO_CC2_USER'),
+        'PASSWORD': env.str('TRABALHO_CC2_PASS'),
+        'HOST': env.str('TRABALHO_CC2_HOST'),
+        'PORT': env.str('TRABALHO_CC2_PORT')
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
