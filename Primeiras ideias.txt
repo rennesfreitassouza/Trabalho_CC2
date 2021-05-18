@@ -1,0 +1,51 @@
+_____________________________________ 
+Um exemplo de algorítmo na nova linguagem para gerar um arquivo models.py:
+
+Model-Begin
+
+    Entity-Begin Game
+        name: string
+        publisher: string
+    Entity-End
+
+    Entity-Begin Release
+        name: string
+        number: int
+        releasedGame: Game
+        platform: Platform
+    Entity-End
+
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
+Model-End
+_____________________________________ 
+Arquivo com as regras léxicas e sintáticas:
+
+grammar NOMEDESTEARQUIVO;
+
+/*Regras léxicas:*/
+
+
+TERMINAIS_LITERAIS /*Expressão regular definida para identificar terminais literais*/
+    : 'Model-Begin' | 'Model-End' | 'string' | 'int' | 'True' | 'False'
+    ;
+
+NUM_INT /*Expressão regular definida para reconhecer números inteiros*/
+    :('0'..'9')+;
+
+NUM_REAL /*Expressão regular definida para reconhecer números reais*/
+    :('0'..'9')+ '.' ('0'..'9')+;
+
+IDENT /*Expressão regular definida para reconhecer identificadores (verificar início numérico)*/
+    : ('a'..'z' | 'A'..'Z' | '_')('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
+
+/*Regras sintáticas*/
+program: model;
+model: "Model-Begin" entity* "Model-End";
+entity: "Entity-Begin" IDENT field+ "Entity-End";
+field: fieldName=IDENT ":" tipo_basico "(" ( (parametro_entrada "=" valorparametro_entrada)* "," )* ")" ;
+tipo_basico: 'models.IntegerField' | 'models.CharField' | 'models.ForeignKey' | 'models.DateTimeField';
+parametro_entrada: 'primary_key' | 'max_length' | 'unique' | 'on_delete' | 'to_field' | IDENT;
+valorparametro_entrada: 'True' | 'False' | NUM_INT | IDENT;
