@@ -1,0 +1,23 @@
+_____________________________________ 
+Um exemplo de algoritmo na nova linguagem para gerar um arquivo models.py:
+
+Model-Begin
+
+    Entity-Begin Game
+        name: string
+        publisher: string
+    Entity-End
+
+    Entity-Begin Release
+        game: Game
+        platform: Platform
+        releasedate: date
+        version: int
+    Entity-End
+
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
+Model-End
+_____________________________________ 
