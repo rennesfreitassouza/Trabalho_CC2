@@ -1,4 +1,4 @@
-## Tutorial para execução deste projeto:
+## Tutorial para execução do projeto em Trabalho_CC2\\:
 
 - Instalar: Server version: 8.0.25 MySQL Community Server e Python 3.8.7
 
