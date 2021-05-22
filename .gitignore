@@ -26,3 +26,4 @@ venv.bak/
 
 # Environment
 .env
+/ModelGenerator/target/
