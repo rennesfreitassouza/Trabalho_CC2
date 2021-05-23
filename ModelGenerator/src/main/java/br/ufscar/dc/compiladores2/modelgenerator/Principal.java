@@ -42,10 +42,11 @@ public class Principal {
         // (regra program), já que esse é um analisador  descendente (ele começa
         // pelo o símbolo inicial da gramática e vai descendo na árvore para
         // então construir uma árvore sintática).
-        ProgramContext arvoreModelgenerator = modelGeneratorParser.program();
+        ProgramContext arvoreModelGenerator = modelGeneratorParser.program();
         
         
-        
+        ModelGeneratorSemantico modelGeneratorSem = new ModelGeneratorSemantico();
+        //modelGeneratorSem.visitReceita(arvoreModelGenerator); escrever classes.
         //...
         
         
