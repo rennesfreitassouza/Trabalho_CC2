@@ -24,7 +24,7 @@ ESC_SEQ
     : '\\"';
 
 COMENTARIO /* Expressão regular definida para reconhecer e ignorar comentários */
-    : '#' ~( '\n' | '\r' )* '}' {skip();};
+    : '#' ~('\n'|'\r')* ('\r')* '\n' {skip();}; /*Somente são permitidos comentários de um linha e terminados com '\n'.*/
 
 
 CARACTERESIGNORADOS /*Expressão regular definida para reconhecer e ignorar espaços em branco e os caracteres '\t', '\r' e '\n'*/
@@ -40,12 +40,33 @@ ErrorCharacter /*Expressão regular definida para reconhecer qualquer caractere 
 
 /*Regras sintáticas*/
 
-program: model;
+program 
+    : model
+    ;
 
-model: 'Model-Begin' entity* 'Model-End';
+model
+    : 'Model-Begin' imports* entity* 'Model-End' fim_de_arquivo
+    ;
 
-entity: 'Entity-Begin' IDENT field+ 'Entity-End';
+imports
+    : 'import' ( modules ','? )+
+    ;
 
-field: fieldName=IDENT ':' ( tipo_basico | modelname=IDENT) ;
+modules
+    : 'models'
+    ;
+entity:
+    'Entity-Begin' IDENT field+ 'Entity-End'
+    ;
 
-tipo_basico: 'int' | 'string' | 'date';
+field
+    : fieldName=IDENT ':' ( tipo_basico | modelName=IDENT)
+    ;
+
+tipo_basico
+    : 'int' | 'string' | 'date'
+    ;
+
+fim_de_arquivo
+    :   EOF
+    ;

@@ -20,7 +20,7 @@ public class MeuErrorListener extends BaseErrorListener {
           this.pw = escritaarquivo;   //Objeto do tipo PrintWriter que escreve no objeto 'arquivo' da classe Principal que está aberto para gravar dados.
     }
       
-      //Para impressao dos erros identificados em arquivo
+      //Para impressao dos erros identificados sintáticos em arquivo.
       @Override
       public void syntaxError(Recognizer<?,?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
       System.out.println("Erro identificado. Compilação abortada.");
@@ -32,5 +32,5 @@ public class MeuErrorListener extends BaseErrorListener {
               Logger.getLogger(MeuErrorListener.class.getName()).log(Level.SEVERE, null, ex);
           }
       System.exit(0);
-   } 
+   }
 }

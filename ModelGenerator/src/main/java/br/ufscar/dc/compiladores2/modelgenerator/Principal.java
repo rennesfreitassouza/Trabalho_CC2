@@ -4,6 +4,7 @@
  */
 package br.ufscar.dc.compiladores2.modelgenerator;
 
+import br.ufscar.dc.compiladores2.modelgenerator.regrasParser.ProgramContext;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,11 +24,26 @@ public class Principal {
         PrintWriter pw = new PrintWriter(arquivo); // Objeto do tipo PrintWriter que escreve no objeto 'arquivo' que está aberto para gravar dados.
         
         //Construção do léxico.
+        regrasLexer modelGeneradorLexer = new regrasLexer(cs);
         //Inicialização do buffer de tokens.
-        //Inicialização do parser. Para sua inicialização é passado como argumento o fluxo de tokens, que aponta para o lexer, que aponta para o arquivo inserido na linha de comando.
+        CommonTokenStream tokens = new CommonTokenStream(modelGeneradorLexer);
         
-        MeuErrorListener meuErrorListener = new MeuErrorListener(arquivo, pw); //Para imprimir no araquivo os erros identificados ate agora
+        // Inicialização do parser. Para sua inicialização é passado como
+        // argumento o fluxo de tokens, que aponta para o lexer, que aponta para
+        // o arquivo inserido na linha de comando.
+        regrasParser modelGeneratorParser = new regrasParser(tokens);
+        
+        MeuErrorListener meuErrorListener = new MeuErrorListener(arquivo, pw);
+        
         //Adiconar meuErrorListener ao parser instanciado.
+        modelGeneratorParser.addErrorListener(meuErrorListener);
+        
+        // A execução do parser começa chamando o símbolo inicial
+        // (regra program), já que esse é um analisador  descendente (ele começa
+        // pelo o símbolo inicial da gramática e vai descendo na árvore para
+        // então construir uma árvore sintática).
+        ProgramContext arvoreModelgenerator = modelGeneratorParser.program();
+        
         
         
         //...

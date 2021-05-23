@@ -9,7 +9,8 @@ import org.antlr.v4.runtime.Token;
 public class ModelGeneratorSemanticoUtils {
     
     public static List<String> errosSemanticos = new ArrayList<>();
-    //errosSemanticos é uma lista de Strings. Quando o método add for invocado a partir dela, a String indicada é adicionada na lista.
+    // errosSemanticos é uma lista de Strings. Quando o método add for invocado
+    // a partir dela, a String indicada é adicionada na lista.
     
     
     

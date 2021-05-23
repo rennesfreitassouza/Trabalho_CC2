@@ -1,0 +1,21 @@
+Model-Begin
+
+	import models 
+	
+    Entity-Begin Game
+        name string #caso_de_teste_4: nome de variável não delimitado por ':'.
+        publisher: string
+    Entity-End
+
+    Entity-Begin Release
+        game: Game
+        platform: Platform
+        releasedate: date
+        version: int
+    Entity-End
+
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
+Model-End
