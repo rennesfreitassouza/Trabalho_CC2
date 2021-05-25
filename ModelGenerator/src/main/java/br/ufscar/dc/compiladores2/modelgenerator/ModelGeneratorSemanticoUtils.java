@@ -17,4 +17,8 @@ public class ModelGeneratorSemanticoUtils {
     public static void insereErroIdentificadorJaDeclarado(Token identificador){
         errosSemanticos.add("Linha "+identificador.getLine()+": identificador "+identificador.getText()+" já declarado anteriormente.");
     }
+    
+    public static void insereErroTipoNaoDeclarado(Token identificador){
+        errosSemanticos.add("Linha "+identificador.getLine()+": tipo "+identificador.getText()+" não declarado anteriormente.");
+    }
 }

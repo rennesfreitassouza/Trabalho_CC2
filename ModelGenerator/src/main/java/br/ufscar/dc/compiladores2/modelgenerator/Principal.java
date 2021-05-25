@@ -46,8 +46,7 @@ public class Principal {
         
         
         ModelGeneratorSemantico modelGeneratorSem = new ModelGeneratorSemantico();
-        //modelGeneratorSem.visitReceita(arvoreModelGenerator); escrever classes.
-        //...
+        modelGeneratorSem.visitProgram(arvoreModelGenerator);
         
         
         ModelGeneratorSemanticoUtils.errosSemanticos.forEach((s) -> pw.println(s));
