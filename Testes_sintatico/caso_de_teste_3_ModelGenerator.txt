@@ -1,0 +1,21 @@
+Model-Begin
+
+	import models
+	
+    Entity-Begin Game
+        name: string
+        publisher: string
+				#caso_de_teste_3: Entity declarado dentro de Entity.
+
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
+    Entity-Begin Release
+        game: Game
+        platform: Platform
+        releasedate: date
+        version: int
+    Entity-End
+
+Model-End
