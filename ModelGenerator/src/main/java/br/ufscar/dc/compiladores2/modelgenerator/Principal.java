@@ -57,6 +57,21 @@ public class Principal {
             pw.close();
             arquivo.close();
         }
+        else // Se não houver erros semânticos, gera o código na linguagem ModelGenerator. 
+        {
+            pw.close();
+            arquivo.close();
+            
+            ModelGeneratorGerador modelGeneratorG = new ModelGeneratorGerador();  // inicialização do gerador.
+            //Um escopo contém as entidades e seus respectivos fields.
+            
+            modelGeneratorG.visitProgram(arvoreModelGenerator); // A mesma árvore construída pelo parser é visitada novamente pelo gerador.
+            try ( PrintWriter pw2 = new PrintWriter(args[1])) //PrintWriter é um objeto em java que serve para escrever no console ou em arquivo. args[1] é o local que é impresso o código de saída.
+            {
+                pw2.print(modelGeneratorG.saida.toString()); //saída contém todo o código HTML de saída.
+                pw2.close();
+            }
+        }
         
     }
 }

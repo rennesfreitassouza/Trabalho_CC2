@@ -7,15 +7,15 @@ Model-Begin
         publisher: string
     Entity-End
 
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
     Entity-Begin Release
         game: Game
         platform: Platform
         releasedate: date
         version: int
-    Entity-End
-
-    Entity-Begin Platform
-        name: string
     Entity-End
 
 Model-End

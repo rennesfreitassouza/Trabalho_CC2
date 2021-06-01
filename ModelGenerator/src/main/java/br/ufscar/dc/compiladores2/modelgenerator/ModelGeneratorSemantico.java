@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufscar.dc.compiladores2.modelgenerator;
 
 import static br.ufscar.dc.compiladores2.modelgenerator.ModelGeneratorSemanticoUtils.insereErroIdentificadorJaDeclarado;
 import static br.ufscar.dc.compiladores2.modelgenerator.ModelGeneratorSemanticoUtils.insereErroTipoNaoDeclarado;
 import org.antlr.v4.runtime.Token;
 
-/**
- *
- * @author Usuário
- */
 public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
 
     Escopos escopo;
@@ -57,7 +48,7 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
             if (modelToken != null) {
                 String modelNome = modelToken.getText();
 
-                if (escopo.obterTipo(modelNome) != TabelaDeSimbolos.TipoModelGenerator.ENTITY) {
+                if (escopo.obterTipo(modelNome) != TabelaDeSimbolos.TipoModelGenerator.ENTITY) { //?
                     insereErroTipoNaoDeclarado(modelToken);
                 }
             }
