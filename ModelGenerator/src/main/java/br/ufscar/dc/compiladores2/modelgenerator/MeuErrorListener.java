@@ -9,33 +9,21 @@ public class MeuErrorListener extends BaseErrorListener {
 
     //Para impressao dos erros identificados sintáticos em arquivo.
     @Override
-    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
-        String erroMensagem;
+    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol,
+            int line, int charPositionInLine, String msg,
+            RecognitionException e) {
 
-        Token erroToken = (Token) offendingSymbol;
-        int erroTipo = erroToken.getType();
-        String erroCategoria;
+        // Token do objeto que provocou o erro.
+        Token errorToken = (Token) offendingSymbol;
+        
+        // String que representa o erro.
+        String errorTokenString = errorToken.getText();
+        
+        // String contendo a mensagem de erro.
+        String errorMessage = "Erro identificado: Linha " + line + " - erro próximo a \""
+                + errorTokenString + "\"";
 
-        if (regrasParser.VOCABULARY.getSymbolicName(erroTipo) != null) {
-            erroCategoria = regrasParser.VOCABULARY.getSymbolicName(erroTipo);
-        } else {
-            erroCategoria = "DEFAULT";
-        }
-
-        // Caso o método seja chamado, definir a categoria do erro
-        switch (erroCategoria) {
-            case "ERRO_SIMBOLO":
-                erroMensagem = ("Linha " + line + ": símbolo \""
-                        + ((Token) offendingSymbol).getText()
-                        + "\" nao identificado");
-                break;
-            default:
-                erroMensagem = "Linha " + line + ": erro sintático próximo a \""
-                        + ((Token) offendingSymbol).getText() + "\"";
-                break;
-        }
-
-        // Lançar uma RuntimeExcpetion com a mensagem de erro adequada
-        throw new RuntimeException(erroMensagem);
+        // Lançamento de uma RuntimeExcpetion com a mensagem de erro.
+        throw new RuntimeException(errorMessage);
     }
 }
