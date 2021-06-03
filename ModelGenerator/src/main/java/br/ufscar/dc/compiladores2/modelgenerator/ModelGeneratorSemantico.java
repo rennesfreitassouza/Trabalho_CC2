@@ -48,7 +48,9 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
             if (modelToken != null) {
                 String modelNome = modelToken.getText();
 
-                if (escopo.obterTipo(modelNome) != TabelaDeSimbolos.TipoModelGenerator.ENTITY) { //?
+                // Reportar erro caso o field seja declarado utilizando um novo
+                // tipo não declarado como ENTITY.
+                if (escopo.obterTipo(modelNome) != TabelaDeSimbolos.TipoModelGenerator.ENTITY) {
                     insereErroTipoNaoDeclarado(modelToken);
                 }
             }
