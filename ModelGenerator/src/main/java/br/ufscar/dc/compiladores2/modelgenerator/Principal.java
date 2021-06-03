@@ -71,7 +71,7 @@ public class Principal {
             // Caso haja erro sintático, capturar a mensagem de erro e imprimir no terminal.
             System.out.println(re.getMessage());
 
-            System.out.println("Fim da compilacao");
+            System.out.println("Compilação abortada");
         }
 
     }
