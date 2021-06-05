@@ -1,21 +1,24 @@
-# Um exemplo de algoritmo na nova linguagem para gerar um arquivo models.py:
+# Um exemplo de algoritmo sem erros léxicos na nova linguagem para gerar um arquivo models.py:
 
 Model-Begin
 
-    Entity-Begin Game
-        name: string()
-        publisher: string()
+	import models
+	
+    Entity-Begin Games
+        name: string
+        publisher: string
     Entity-End
 
-    Entity-Begin Release
-        game: Game
-        platform: Platform
+    Entity-Begin Platforms
+        name: string(max_length=255, unique=True)
+    Entity-End
+
+    Entity-Begin Releases
+        game: Games
+        platform: Platforms
         releasedate: date
         version: int
     Entity-End
 
-    Entity-Begin Platform
-        name: string(max_length=255, unique=True) #attr de params em des.
-    Entity-End
 
 Model-End
