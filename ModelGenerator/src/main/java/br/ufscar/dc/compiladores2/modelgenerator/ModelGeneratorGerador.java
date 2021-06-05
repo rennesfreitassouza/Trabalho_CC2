@@ -24,6 +24,11 @@ public class ModelGeneratorGerador extends regrasBaseVisitor<Void> {
                 visitImports(djangoModules);
             }
         }
+        if (ctx.entity() != null){
+            for (regrasParser.EntityContext modelClass : ctx.entity()){
+                visitEntity(modelClass);
+            }
+        }
         return null;
     }
     
@@ -39,6 +44,77 @@ public class ModelGeneratorGerador extends regrasBaseVisitor<Void> {
             }
         }
         saida.append("\n");
+        return null;
+    }
+    
+    @Override
+    public Void visitEntity(regrasParser.EntityContext ctx){
+        String className = ctx.IDENT().getText();
+        saida.append("class "+className+"(models.Model):\n");
+        for (regrasParser.FieldContext modelAttr : ctx.field()){
+            visitField(modelAttr);
+        }
+        saida.append("\n");
+        return null;
+    }
+    
+    @Override
+    public Void visitField(regrasParser.FieldContext ctx){
+        String attrName = ctx.fieldName.getText();
+        
+        saida.append("\t"+attrName+" = ");
+        
+        if (ctx.tipo_basico() != null){
+            visitTipo_basico(ctx.tipo_basico());
+            saida.append("(");
+            if (ctx.params() != null){
+                for (regrasParser.ParamsContext parameter : ctx.params()){
+                    visitParams(parameter);
+                    if(ctx.TL != null){
+                        saida.append(ctx.TL.getText());
+                    }
+                }
+            }
+            saida.append(")\n");
+        }
+        else{
+            if(ctx.otherModelName != null){
+                saida.append("models.ForeignKey("+ctx.otherModelName.getText()+", "+"on_delete=models.CASCADE)"); //Modificar?
+                saida.append("\n");
+            }
+        }
+        
+        
+        return null;
+    }
+    
+    @Override
+    public Void visitTipo_basico(regrasParser.Tipo_basicoContext ctx){
+        
+        if (ctx.getText().equals("int")){
+            saida.append("models.IntegerField"); //Modificar?
+            
+        }
+        if (ctx.getText().equals("string")){
+            saida.append("models.CharField"); //Modificar?
+            
+        }
+        if (ctx.getText().equals("date")){
+            saida.append("models.DateTimeField"); //Modificar?
+            
+        }
+        return null;
+    }
+    
+    @Override
+    public Void visitParams(regrasParser.ParamsContext ctx){
+        if(ctx.parCharFieldML != null){
+            saida.append(ctx.parCharFieldML.getText()+ctx.parCharFieldTL.getText()+ctx.NUM_INT().getText());
+        }
+        if(ctx.parFieldUnique != null){
+            saida.append(ctx.parFieldUnique.getText()+ctx.parCharFieldTL.getText()+ctx.parFieldBoolean.getText());
+        }
+        
         return null;
     }
 }

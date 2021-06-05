@@ -36,7 +36,7 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
     @Override
     public Void visitField(regrasParser.FieldContext ctx) {
         Token fieldToken = ctx.fieldName;
-        Token modelToken = ctx.modelName;
+        Token modelToken = ctx.otherModelName;
 
         String fieldNome = fieldToken.getText();
 

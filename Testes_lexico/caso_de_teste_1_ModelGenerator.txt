@@ -4,18 +4,18 @@ Model-Begin
 
 	import models
 	
-    Entity-Begin Game
+    Entity-Begin Games
         name: string
         publisher: string
     Entity-End
 
-    Entity-Begin Platform
+    Entity-Begin Platforms
         name: string
     Entity-End
 
-    Entity-Begin Release
-        game: Game
-        platform: Platform
+    Entity-Begin Releases
+        game: Games
+        platform: Platforms
         releasedate: date
         version: int
     Entity-End

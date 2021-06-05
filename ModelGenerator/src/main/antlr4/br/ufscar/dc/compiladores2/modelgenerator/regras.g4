@@ -55,16 +55,22 @@ imports
 modules
     : 'models'
     ;
+
 entity:
     'Entity-Begin' IDENT field+ 'Entity-End'
     ;
 
 field
-    : fieldName=IDENT ':' ( tipo_basico | modelName=IDENT)
+    : fieldName=IDENT ':' ( tipo_basico | otherModelName=IDENT) ( '(' ( params TL=','? )* ')' )* /*Em desenvolv.*/
     ;
 
 tipo_basico
-    : 'int' | 'string' | 'date'
+    : 'int' | 'date' | 'string'  
+    ;
+
+params
+    : (parCharFieldML='max_length' parCharFieldTL='=' NUM_INT)
+    | (parFieldUnique='unique' parFieldTL='=' parFieldBoolean='True')
     ;
 
 fim_de_arquivo

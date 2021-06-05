@@ -3,8 +3,8 @@
 Model-Begin
 
     Entity-Begin Game
-        name: string
-        publisher: string
+        name: string()
+        publisher: string()
     Entity-End
 
     Entity-Begin Release
@@ -15,7 +15,7 @@ Model-Begin
     Entity-End
 
     Entity-Begin Platform
-        name: string
+        name: string(max_length=255, unique=True) #attr de params em des.
     Entity-End
 
 Model-End
