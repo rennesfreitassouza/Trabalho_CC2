@@ -112,7 +112,7 @@ public class ModelGeneratorGerador extends regrasBaseVisitor<Void> {
             saida.append(ctx.parCharFieldML.getText()+ctx.parCharFieldTL.getText()+ctx.NUM_INT().getText());
         }
         if(ctx.parFieldUnique != null){
-            saida.append(ctx.parFieldUnique.getText()+ctx.parCharFieldTL.getText()+ctx.parFieldBoolean.getText());
+            saida.append(ctx.parFieldUnique.getText()+ctx.parFieldTL.getText()+ctx.parFieldBoolean.getText());
         }
         
         return null;
