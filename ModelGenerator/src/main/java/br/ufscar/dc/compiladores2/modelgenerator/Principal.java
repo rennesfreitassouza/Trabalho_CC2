@@ -63,11 +63,13 @@ public class Principal {
                 // Instanciar as classe para gerar os arquivos.
                 GeradorModels models = new GeradorModels();
                 GeradorSerializers serializers = new GeradorSerializers();
+                GeradorVIews views = new GeradorVIews();
 
                 // Reutilização da árvore sintática para gerar o código dos
                 // arquivos.
                 models.visitProgram(arvore);
                 serializers.visitProgram(arvore);
+                views.visitProgram(arvore);
 
                 // Impressão dos códigos nos respectivos arquivos.
                 try ( PrintWriter pw = new PrintWriter(args[1]
@@ -75,10 +77,16 @@ public class Principal {
                     pw.print(models.saida.toString());
                     pw.close();
                 }
-                
+
                 try ( PrintWriter pw = new PrintWriter(args[1]
                         + "/serializers.py")) {
                     pw.print(serializers.saida.toString());
+                    pw.close();
+                }
+
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/views.py")) {
+                    pw.print(views.saida.toString());
                     pw.close();
                 }
 
