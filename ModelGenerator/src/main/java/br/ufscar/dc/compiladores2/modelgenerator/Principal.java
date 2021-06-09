@@ -1,78 +1,95 @@
 /*
- * Esse projeto foi compilado e testado usando o NetBeans 12.0, Java 11.0.11
- * e o ANTLR 4.9.2.
+ * Esse projeto foi compilado e testado usando o NetBeans 12.0, Java 11.0.11 e o
+ * ANTLR 4.7.2.
  */
 package br.ufscar.dc.compiladores2.modelgenerator;
 
-import br.ufscar.dc.compiladores2.modelgenerator.regrasParser.ProgramContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import br.ufscar.dc.compiladores2.modelgenerator.regrasParser.ProgramContext;
+import static br.ufscar.dc.compiladores2.modelgenerator.SemanticoUtils.errosSemanticos;
 
 public class Principal {
 
     public static void main(String args[]) throws IOException {
 
-        CharStream cs = CharStreams.fromFileName(args[0]); //Objeto cs da classe CharStream (que gera um fluxo de caracteres) que chama o método utilitário da classe CharStreams.fromFileName para ser construído.
-        //A classe CharStreams.fromFileName tem como argumento aquilo que é passado por linha de comando quando o programa é chamado.
+        // Inicialização do fluxo de caracteres com o arquivo indicado no
+        // primeiro argumento.
+        CharStream cs = CharStreams.fromFileName(args[0]);
 
-        //Construção do léxico.
-        regrasLexer modelGeneradorLexer = new regrasLexer(cs);
-        //Inicialização do buffer de tokens.
-        CommonTokenStream tokens = new CommonTokenStream(modelGeneradorLexer);
+        // Inicialização do analisador léxico com o fluxo de caracteres.
+        regrasLexer lexer = new regrasLexer(cs);
 
-        // Inicialização do parser. Para sua inicialização é passado como
-        // argumento o fluxo de tokens, que aponta para o lexer, que aponta para
-        // o arquivo inserido na linha de comando.
-        regrasParser modelGeneratorParser = new regrasParser(tokens);
+        // Inicialização da lista de tokens com o analisador léxico.
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+        // Inicialização do analisador sintático com a lista de tokens.
+        regrasParser parser = new regrasParser(tokens);
+
+        // Instanciação da classe que irá capturar os erros.
         MeuErrorListener meuErrorListener = new MeuErrorListener();
 
-        // Remover a manipulação padrão dos erros sintáticos.
-        modelGeneratorParser.removeErrorListeners();
+        // Remoção da manipulação padrão dos erros sintáticos.
+        parser.removeErrorListeners();
 
-        //Adiconar meuErrorListener ao parser instanciado.
-        modelGeneratorParser.addErrorListener(meuErrorListener);
+        // Adição do objeto instanciado na manipulação dos erros sintáticos.
+        parser.addErrorListener(meuErrorListener);
 
         try {
-            // A execução do parser começa chamando o símbolo inicial
-            // (regra program), já que esse é um analisador  descendente (ele começa
-            // pelo o símbolo inicial da gramática e vai descendo na árvore para
-            // então construir uma árvore sintática).
-            ProgramContext arvoreModelGenerator = modelGeneratorParser.program();
+            // Início da análise sintática pelo símbolo inicial da gramática
+            // (pois é um analisador descendente), armazenando a árvore gerada.
+            ProgramContext arvore = parser.program();
 
-            ModelGeneratorSemantico modelGeneratorSem = new ModelGeneratorSemantico();
-            modelGeneratorSem.visitProgram(arvoreModelGenerator);
+            // Instanciação a classe para a análise semântica.
+            Semantico semantico = new Semantico();
 
-            if (!ModelGeneratorSemanticoUtils.errosSemanticos.isEmpty()) //Se houver erros semânticos, entra neste bloco de código.
-            {
-                ModelGeneratorSemanticoUtils.errosSemanticos.forEach((s) -> System.out.println(s));
-                //forEach significa "para cada um desses erros". ((s) -> pw.println(s)) imprime a lista no arquivo.
+            // Reutilização da árvore sintática para realizar a análise
+            // semântica.
+            semantico.visitProgram(arvore);
 
+            if (!errosSemanticos.isEmpty()) {
+                // Caso haja erros semânticos, imprimí-los e terminar a
+                // compilação.
+
+                errosSemanticos.forEach((s) -> System.out.println(s));
                 System.out.println("Fim da compilacao");
-            } else // Se não houver erros semânticos, gera o código na linguagem ModelGenerator. 
-            {
-                ModelGeneratorGerador modelGeneratorG = new ModelGeneratorGerador();  // inicialização do gerador.
-                //Um escopo contém as entidades e seus respectivos fields.
+            } else {
+                // Caso não haja erros semânticos, prosseguir com a geração do
+                // código.
 
-                modelGeneratorG.visitProgram(arvoreModelGenerator); // A mesma árvore construída pelo parser é visitada novamente pelo gerador.
+                // Instanciar as classe para gerar os arquivos.
+                GeradorModels models = new GeradorModels();
+                GeradorSerializers serializers = new GeradorSerializers();
+
+                // Reutilização da árvore sintática para gerar o código dos
+                // arquivos.
+                models.visitProgram(arvore);
+                serializers.visitProgram(arvore);
+
+                // Impressão dos códigos nos respectivos arquivos.
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/models.py")) {
+                    pw.print(models.saida.toString());
+                    pw.close();
+                }
+                
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/serializers.py")) {
+                    pw.print(serializers.saida.toString());
+                    pw.close();
+                }
 
                 System.out.println("Compilado com sucesso");
-
-                try ( PrintWriter pw2 = new PrintWriter(args[1])) //PrintWriter é um objeto em java que serve para escrever no console ou em arquivo. args[1] é o local que é impresso o código de saída.
-                {
-                    pw2.print(modelGeneratorG.saida.toString()); //saída contém todo o código HTML de saída.
-                    pw2.close();
-                }
             }
         } catch (RuntimeException re) {
-            // Caso haja erro sintático, capturar a mensagem de erro e imprimir no terminal.
+            // Caso haja algum erros sintático, imprimí-lo e terminar a
+            // compilação.
+
             System.out.println(re.getMessage());
-
-            System.out.println("Compilação abortada");
+            System.out.println("Fim da compilacao");
         }
-
     }
 }
