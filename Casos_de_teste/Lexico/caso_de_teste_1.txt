@@ -1,0 +1,24 @@
+# Um exemplo de algoritmo sem erros léxicos na nova linguagem para gerar um arquivo models.py:
+
+Model-Begin
+
+	import models
+	
+    Entity-Begin Games
+        name: string
+        publisher: string
+    Entity-End
+
+    Entity-Begin Platforms
+        name: string
+    Entity-End
+
+    Entity-Begin Releases
+        game: Games
+        platform: Platforms
+        releasedate: date
+        version: int
+    Entity-End
+
+
+Model-End

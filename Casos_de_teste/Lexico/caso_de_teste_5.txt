@@ -1,0 +1,21 @@
+Model-Begin
+
+	import models 
+	
+    Entity-Begin Game
+        name: string 
+        publisher: string
+    Entity-End
+
+    Entity-Begin Platform
+        name: 5trinG #caso_de_teste_5: tipo variável escrita com a primeira letra com um número.
+    Entity-End
+
+    Entity-Begin Release
+        game: Game
+        platform: Platform
+        releasedate: date
+        version: int
+    Entity-End
+
+Model-End

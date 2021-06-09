@@ -1,0 +1,22 @@
+Model-Begin
+	
+    Entity-Begin Game
+        name: string
+        publisher: string
+    Entity-End
+
+    Entity-Begin Platform
+        name: string
+    Entity-End
+
+    Entity-Begin Release
+        game: Game
+        platform: game		#caso_de_teste_5: identificador utilizado como tipo.
+        platform: Platform
+        releasedate: date
+        version: int
+    Entity-End
+
+Model-End
+
+
