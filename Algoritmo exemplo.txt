@@ -10,7 +10,7 @@ Model-Begin
     Entity-End
 
     Entity-Begin Platforms
-        name: string(max_length=255, unique=True) /*attr de params em desenvolv.*/
+        name: string(max_length=255, unique=True) # attr de params em desenvolv.
     Entity-End
 
     Entity-Begin Releases
