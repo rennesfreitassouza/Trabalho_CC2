@@ -1,10 +1,9 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
-import static br.ufscar.dc.compiladores2.modelgenerator.ModelGeneratorSemanticoUtils.insereErroIdentificadorJaDeclarado;
-import static br.ufscar.dc.compiladores2.modelgenerator.ModelGeneratorSemanticoUtils.insereErroTipoNaoDeclarado;
 import org.antlr.v4.runtime.Token;
+import static br.ufscar.dc.compiladores2.modelgenerator.SemanticoUtils.adicionarErroSemantico;
 
-public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
+public class Semantico extends regrasBaseVisitor<Void> {
 
     Escopos escopo;
 
@@ -17,11 +16,11 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
     @Override
     public Void visitEntity(regrasParser.EntityContext ctx) {
         Token entityToken = ctx.IDENT().getSymbol();
-
         String entityNome = entityToken.getText();
 
         if (escopo.existe(entityNome)) {
-            insereErroIdentificadorJaDeclarado(entityToken);
+            adicionarErroSemantico(entityToken, "\"" + entityNome
+                    + "\" já declarado anteriormente.");
         } else {
             escopo.adicionarEntity(entityNome);
         }
@@ -29,7 +28,6 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
         escopo.criarNovoEscopo();
         super.visitEntity(ctx);
         escopo.abandonarEscopo();
-
         return null;
     }
 
@@ -37,26 +35,26 @@ public class ModelGeneratorSemantico extends regrasBaseVisitor<Void> {
     public Void visitField(regrasParser.FieldContext ctx) {
         Token fieldToken = ctx.fieldName;
         Token modelToken = ctx.otherModelName;
-
         String fieldNome = fieldToken.getText();
 
         if (escopo.existe(fieldNome)) {
-            insereErroIdentificadorJaDeclarado(fieldToken);
+            adicionarErroSemantico(fieldToken, "\"" + fieldNome
+                    + "\" já declarado anteriormente.");
         } else {
             escopo.adicionarField(fieldNome);
 
             if (modelToken != null) {
                 String modelNome = modelToken.getText();
 
-                // Reportar erro caso o field seja declarado utilizando um novo
+                // Reporta erro caso o field seja declarado utilizando um novo
                 // tipo não declarado como ENTITY.
-                if (escopo.obterTipo(modelNome) != TabelaDeSimbolos.TipoModelGenerator.ENTITY) {
-                    insereErroTipoNaoDeclarado(modelToken);
+                if (escopo.obterTipo(modelNome)
+                        != TabelaDeSimbolos.TipoModelGenerator.ENTITY) {
+                    adicionarErroSemantico(modelToken, "\"" + modelNome
+                            + "\" não declarado anteriormente.");
                 }
             }
         }
-
         return super.visitField(ctx);
     }
-
 }

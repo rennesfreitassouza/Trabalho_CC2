@@ -1,8 +1,8 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
 import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Token;
 
 public class MeuErrorListener extends BaseErrorListener {
@@ -15,13 +15,13 @@ public class MeuErrorListener extends BaseErrorListener {
 
         // Token do objeto que provocou o erro.
         Token errorToken = (Token) offendingSymbol;
-        
+
         // String que representa o erro.
         String errorTokenString = errorToken.getText();
-        
+
         // String contendo a mensagem de erro.
-        String errorMessage = "Erro identificado: Linha " + line + " - erro próximo a \""
-                + errorTokenString + "\"";
+        String errorMessage = "Erro identificado: Linha " + line
+                + " - erro próximo a \"" + errorTokenString + "\"";
 
         // Lançamento de uma RuntimeExcpetion com a mensagem de erro.
         throw new RuntimeException(errorMessage);

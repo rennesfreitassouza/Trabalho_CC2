@@ -1,11 +1,11 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
-public class ModelGeneratorGerador extends regrasBaseVisitor<Void> {
+public class GeradorModels extends regrasBaseVisitor<Void> {
     
     StringBuilder saida; // Para construir o código python, será usado a classe StringBuilder. O objeto saida do tipo StringBuilder é um acumulador de Strings.
     Escopos escopoModelGenerator; // Para construir o código python, a classe Escopos será usada.
     
-    public ModelGeneratorGerador() {
+    public GeradorModels() {
         escopoModelGenerator = new Escopos();
         saida = new StringBuilder();
     }

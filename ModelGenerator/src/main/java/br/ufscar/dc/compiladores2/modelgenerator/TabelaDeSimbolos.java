@@ -1,7 +1,7 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 public class TabelaDeSimbolos {
 
@@ -36,10 +36,12 @@ public class TabelaDeSimbolos {
     }
 
     public void adicionarEntity(String nome) {
-        tabela.put(nome, new EntradaTabelaDeSimbolos(nome, TipoModelGenerator.ENTITY));
+        tabela.put(nome, new EntradaTabelaDeSimbolos(nome,
+                TipoModelGenerator.ENTITY));
     }
 
     public void adicionarField(String nome) {
-        tabela.put(nome, new EntradaTabelaDeSimbolos(nome, TipoModelGenerator.FIELD));
+        tabela.put(nome, new EntradaTabelaDeSimbolos(nome,
+                TipoModelGenerator.FIELD));
     }
 }

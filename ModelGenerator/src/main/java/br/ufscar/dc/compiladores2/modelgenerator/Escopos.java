@@ -1,7 +1,7 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
 
 public class Escopos {
 
