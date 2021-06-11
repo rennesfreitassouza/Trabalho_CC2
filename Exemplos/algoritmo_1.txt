@@ -21,3 +21,48 @@ Model-Begin
 	Entity-End
 
 Model-End
+
+Serializer-Begin
+	import rest_framework, .models
+	
+	Class-Begin GamesSerializer
+		class Meta:
+			model: Games
+			fields: all
+		class-end
+	Class-End
+	
+	Class-Begin ReleasesSerializer
+		class Meta:
+			model: Releases
+			fields: all
+		class-end
+	Class-End
+	
+	Class-Begin PlatformsSerializer
+		class Meta:
+			model: Platforms
+			fields: all
+Serializer-Begin
+
+View-Begin
+	import HttpResponse, viewsets, authentication, permissions, ModelViewSet, Response, .models, .serializers, json
+	
+	Class-Begin GamesViewSet
+		queryset: Games.objects.all
+		serializer_class: GamesSerializer
+		permission_classes: [perm.IsAuth]
+	Class-End
+	
+	Class-Begin PlatformsViewSet
+		queryset: Platforms.objects.all
+		serializer_class: PlatformsSerializer
+		permission_classes: [perm.IsAuth]
+	Class-End
+	
+	Class-Begin ReleasesViewSet
+		queryset = Releases.objects.all
+		serializer_class = ReleasesSerializer
+		permission_classes = [perm.IsAuth]
+	Class-End
+View-End
