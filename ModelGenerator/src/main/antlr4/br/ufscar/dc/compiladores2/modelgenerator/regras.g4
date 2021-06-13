@@ -3,7 +3,10 @@ grammar regras;
 /*Regras léxicas:*/
 
 TERMINAIS_LITERAIS /*Expressão regular definida para identificar terminais literais*/
-    : 'Model-Begin' | 'Model-End' | 'string' | 'int' | 'date' |'True' | 'False' | '=' | ',' | '[' | ']' | '(' | ')' | '.' | '{' | '}' | '-'
+    : 'Model-Begin' | 'Model-End' | 'Serializer-Begin' | 'Serializer-End'
+    | 'Class-Begin' | 'class Meta' | 'class-end' | 'Class-End' | 'View-Begin'
+    | 'View-End' | 'string' | 'int' | 'date' |'True' | 'False' | '=' | ','
+    | '[' | ']' | '(' | ')' | '.' | '{' | '}' | '-'
     | '+' | '*' | '/' | '%' | '&' | '!=' | '>=' | '<=' | '>' | '<'
     ;
 
@@ -40,12 +43,20 @@ ErrorCharacter /*Expressão regular definida para reconhecer qualquer caractere 
 
 /*Regras sintáticas*/
 
-program 
-    : model
+program
+    : model serializers? views? fim_de_arquivo /**/
     ;
 
 model
-    : 'Model-Begin' imports* entity* 'Model-End' fim_de_arquivo
+    : 'Model-Begin' imports* entity* 'Model-End'   
+    ;
+
+serializers
+    : ('Serializer-Begin' imports* classes*  'Serializer-End')
+    ;
+
+views
+    : 'View-Begin' imports* classes* 'View-End'
     ;
 
 imports
@@ -53,15 +64,23 @@ imports
     ;
 
 modules
-    : 'models'
+    : 'models' | '.models' | 'rest_framework' | 'HttpResponse' | 'viewsets'
+    | 'authentication' | 'permissions' | 'ModelViewSet' | 'Response'
+    | '.serializers' | 'json'
     ;
 
-entity:
-    'Entity-Begin' IDENT field+ 'Entity-End'
+entity
+    : 'Entity-Begin' IDENT field+ 'Entity-End'
     ;
 
-field
-    : fieldName=IDENT ':' ( tipo_basico | otherModelName=IDENT) ( '(' ( params TL=','? )* ')' )* /*Em desenvolv.*/
+classes
+    : 'Class-Begin' IDENT (serializer_classes | view_classes)
+    | 'Class-End'
+    ;
+
+field /*Em desenvolv.*/
+    : fieldName=IDENT ':' ( tipo_basico | otherModelName=IDENT) ( '('
+     ( params TL=','? )* ')' )* 
     ;
 
 tipo_basico
@@ -73,6 +92,47 @@ params
     | (parFieldUnique='unique' parFieldTL='=' parFieldBoolean='True')
     ;
 
+serializer_classes
+    : class_Meta+
+    ;
+
+view_classes
+    : class_definitions
+    ;
+
+class_Meta
+    : 'class_Meta' ':' inner_validators* 'class_M_end'
+    ;
+
+inner_validators
+    : (model_attr | field_attr)
+    ;
+
+model_attr
+    : 'model' ':' IDENT
+    ;
+
+field_attr
+    : 'fields' ':' 'all'
+    ;
+
+class_definitions
+    : (rest_view_definitions)+
+    ;
+
+rest_view_definitions
+    : ('queryset' ':' django_querys)
+    | ('serializer_class' ':' serializer_name=IDENT)
+    | ('permission_classes' ':' '[' permissions ']')
+    ;
+
+django_querys
+    : (model_name=IDENT '.' 'objects' '.' 'all')
+    ;
+
+permissions
+    : 'perm.IsAuth'
+    ;
 fim_de_arquivo
     :   EOF
     ;

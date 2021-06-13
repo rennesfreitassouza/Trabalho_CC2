@@ -5,11 +5,11 @@ Model-Begin
 	import models
 	
 	Entity-Begin Games
-		name: string
-		publisher: string
+		name: string(max_length=255, unique=True)
+		publisher: string(max_length=255, unique=True)
 	Entity-End
 
-    	Entity-Begin Platforms
+    Entity-Begin Platforms
 		name: string(max_length=255, unique=True) # attr de params em desenvolv.
 	Entity-End
 
@@ -26,24 +26,26 @@ Serializer-Begin
 	import rest_framework, .models
 	
 	Class-Begin GamesSerializer
-		class Meta:
+		class_Meta:
 			model: Games
 			fields: all
-		class-end
+		class_M_end
 	Class-End
 	
 	Class-Begin ReleasesSerializer
-		class Meta:
+		class_Meta:
 			model: Releases
 			fields: all
-		class-end
+		class_M_end
 	Class-End
 	
 	Class-Begin PlatformsSerializer
-		class Meta:
+		class_Meta:
 			model: Platforms
 			fields: all
-Serializer-Begin
+		class_M_end
+	Class-End
+Serializer-End
 
 View-Begin
 	import HttpResponse, viewsets, authentication, permissions, ModelViewSet, Response, .models, .serializers, json
@@ -61,8 +63,8 @@ View-Begin
 	Class-End
 	
 	Class-Begin ReleasesViewSet
-		queryset = Releases.objects.all
-		serializer_class = ReleasesSerializer
-		permission_classes = [perm.IsAuth]
+		queryset: Releases.objects.all
+		serializer_class: ReleasesSerializer
+		permission_classes: [perm.IsAuth]
 	Class-End
 View-End
