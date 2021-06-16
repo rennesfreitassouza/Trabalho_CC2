@@ -1,10 +1,10 @@
 from django.db import models
 class Games(models.Model):
-	name = models.CharField()
-	publisher = models.CharField()
+	name = models.CharField(max_length=255,unique=True)
+	publisher = models.CharField(max_length=255,unique=True)
 
 class Platforms(models.Model):
-	name = models.CharField(max_length=255,unique=True,)
+	name = models.CharField(max_length=255,unique=True)
 
 class Releases(models.Model):
 	game = models.ForeignKey(Games, on_delete=models.CASCADE)
