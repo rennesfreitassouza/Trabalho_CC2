@@ -1,0 +1,21 @@
+# Versão simplificada do código
+
+Model-Begin
+	import models
+	
+	Entity-Begin Games
+		name: string(max_length=255, unique=True)
+		publisher: string(max_length=255, unique=True)
+	Entity-End
+
+    Entity-Begin Platforms
+		name: string(max_length=255, unique=True)
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games
+		platform: Platforms
+		releasedate: date
+		version: int
+	Entity-End
+Model-End

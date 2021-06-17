@@ -58,35 +58,67 @@ public class Principal {
                 System.out.println("Fim da compilacao");
             } else {
                 // Caso não haja erros semânticos, prosseguir com a geração do
-                // código.
-
+                // código.                
+                
                 // Instanciar as classe para gerar os arquivos.
                 GeradorModels models = new GeradorModels();
                 GeradorSerializers serializers = new GeradorSerializers();
                 GeradorVIews views = new GeradorVIews();
+                GeradorAppUrls appUrls = new GeradorAppUrls();
+                GeradorEnv env = new GeradorEnv();
+                GeradorSettings settings = new GeradorSettings();
+                GeradorDefaultUrls defaultUrls = new GeradorDefaultUrls();
 
                 // Reutilização da árvore sintática para gerar o código dos
                 // arquivos.
                 models.visitProgram(arvore);
                 serializers.visitProgram(arvore);
                 views.visitProgram(arvore);
+                appUrls.visitProgram(arvore);
+                env.visitProgram(arvore);
+                settings.visitProgram(arvore);
+                defaultUrls.visitProgram(arvore);
 
                 // Impressão dos códigos nos respectivos arquivos.
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/models.py")) {
+                        + "/game_lib/models.py")) {
                     pw.print(models.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/serializers.py")) {
+                        + "/game_lib/serializers.py")) {
                     pw.print(serializers.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/views.py")) {
+                        + "/game_lib/views.py")) {
                     pw.print(views.saida.toString());
+                    pw.close();
+                }
+
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/game_lib/urls.py")) {
+                    pw.print(appUrls.saida.toString());
+                    pw.close();
+                }
+
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/TrabalhoCC2/.env.example")) {
+                    pw.print(env.saida.toString());
+                    pw.close();
+                }
+
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/TrabalhoCC2/settings.py")) {
+                    pw.print(settings.saida.toString());
+                    pw.close();
+                }
+
+                try ( PrintWriter pw = new PrintWriter(args[1]
+                        + "/TrabalhoCC2/urls.py")) {
+                    pw.print(defaultUrls.saida.toString());
                     pw.close();
                 }
 

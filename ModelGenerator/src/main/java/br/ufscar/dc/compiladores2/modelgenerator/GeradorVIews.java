@@ -13,10 +13,10 @@ public class GeradorVIews extends regrasBaseVisitor<Void> {
 
         saida.append("from django.http import HttpResponse\n");
         saida.append("from rest_framework import viewsets\n");
-        saida.append(
-                "from rest_framework import authentication, permissions\n");
         saida.append("from rest_framework.viewsets import ModelViewSet\n");
         saida.append("from rest_framework.response import Response\n");
+        saida.append(
+                "from rest_framework import authentication, permissions\n");
         saida.append("from .models import *\n");
         saida.append("from .serializers import *\n");
         saida.append("import json\n");
