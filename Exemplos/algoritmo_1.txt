@@ -80,13 +80,13 @@ AppUrls-Begin
 	AppUrlConf-End
 	
 	urlpatterns-Begin
-		path('', include(router.urls))
-		path('api-auth/', include('rest_framework.urls', namespace='env'))
+		path('_', include(router_urls))
+		path('api_auth', include('rest_framework_urls', namespace='env'))
 	urlpatterns-End
 AppUrls-End
-__________________________________________
+
 Env-Begin
-	DEBUG: on
+	DEBUG: on #
 
 	TRABALHO_CC2_HOST: localhost
 	TRABALHO_CC2_PORT: 3306
@@ -118,12 +118,12 @@ Settings-Begin
 		
 		DATABASES: {
 			'default': {
-				'ENGINE': 'django.db.backends.mysql',
-				'NAME':	env.str('TRABALHO_CC2_DB'),
-				'USER':	env.str('TRABALHO_CC2_USER'),
-				'PASSWORD': env.str('TRABALHO_CC2_PASS'),
-				'HOST': env.str('TRABALHO_CC2_HOST'),
-				'PORT': env.str('TRABALHO_CC2_PORT')
+				'ENGINE': mysql,
+				'NAME':	TRABALHO_CC2_DB,
+				'USER':	TRABALHO_CC2_USER,
+				'PASSWORD': TRABALHO_CC2_PASS,
+				'HOST': TRABALHO_CC2_HOST,
+				'PORT': TRABALHO_CC2_PORT
 			}
 		}
 	AddVariables-End
