@@ -18,8 +18,8 @@
 * Criar um app com o framework:
   * `python manage.py startapp game_lib`
 
-* Executar o compilador ModelGenerator:
-  * Exemplo: `java -jar C:\Users\.m2\repository\br\ufscar\dc\compiladores2\ModelGenerator\1.0-SNAPSHOT\ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar C:\Testes_lexico\caso_de_teste_1_ModelGenerator.txt D:\CC2_TESTES\saida\`
+* Executar o compilador [ModelGenerator](https://github.com/rennesfreitassouza/Trabalho_CC2/blob/main/Compilador/ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar):
+  * Exemplo: `java -jar C:\ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar C:\Testes_lexico\caso_de_teste_1_ModelGenerator.txt C:\CC2\Trabalho_CC2\`
 
 * Seguir o tutorial deste [link](https://github.com/rennesfreitassouza/Trabalho_CC2/blob/main/README.md).
 
