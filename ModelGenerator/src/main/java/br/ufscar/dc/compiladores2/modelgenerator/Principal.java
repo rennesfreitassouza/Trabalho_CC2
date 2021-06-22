@@ -105,19 +105,19 @@ public class Principal {
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/TrabalhoCC2/.env.example")) {
+                        + "/Trabalho_CC2/.env.example")) {
                     pw.print(env.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/TrabalhoCC2/settings.py")) {
+                        + "/Trabalho_CC2/settings.py")) {
                     pw.print(settings.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/TrabalhoCC2/urls.py")) {
+                        + "/Trabalho_CC2/urls.py")) {
                     pw.print(defaultUrls.saida.toString());
                     pw.close();
                 }

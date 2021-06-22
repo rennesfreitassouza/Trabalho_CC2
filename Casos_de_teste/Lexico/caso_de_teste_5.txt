@@ -19,3 +19,143 @@ Model-Begin
     Entity-End
 
 Model-End
+
+Model-Begin
+
+	import models
+	
+	Entity-Begin Games
+		name: string(max_length=255, unique=True)
+		publisher: string(max_length=255, unique=True)
+	Entity-End
+
+    Entity-Begin Platforms
+		name: 5trinG(max_length=255, unique=True) #caso_de_teste_5: tipo variável escrita com a primeira letra com um número.
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games
+		platform: Platforms
+		releasedate: date
+		version: int
+	Entity-End
+
+Model-End
+
+Serializer-Begin
+	import rest_framework, .models
+	
+	Class-Begin GamesSerializer
+		class_Meta:
+			model: Games
+			fields: all
+		class_M_end
+	Class-End
+	
+	Class-Begin ReleasesSerializer
+		class_Meta:
+			model: Releases
+			fields: all
+		class_M_end
+	Class-End
+	
+	Class-Begin PlatformsSerializer
+		class_Meta:
+			model: Platforms
+			fields: all
+		class_M_end
+	Class-End
+Serializer-End
+
+View-Begin
+	import HttpResponse, viewsets, authentication, permissions, ModelViewSet, Response, .models, .serializers, json
+	
+	Class-Begin GamesViewSet
+		queryset: Games.objects.all
+		serializer_class: GamesSerializer
+		permission_classes: [perm.IsAuth]
+	Class-End
+	
+	Class-Begin PlatformsViewSet
+		queryset: Platforms.objects.all
+		serializer_class: PlatformsSerializer
+		permission_classes: [perm.IsAuth]
+	Class-End
+	
+	Class-Begin ReleasesViewSet
+		queryset: Releases.objects.all
+		serializer_class: ReleasesSerializer
+		permission_classes: [perm.IsAuth]
+	Class-End
+View-End
+
+AppUrls-Begin
+	import include, path, routers, .views
+	
+	AppUrlConf-Begin
+		router: routers.DefaultRouter()
+		router.reg('games', GamesViewSet)
+		router.reg('releases', ReleasesViewSet)
+		router.reg('Platforms', ReleasesViewSet)
+	AppUrlConf-End
+	
+	urlpatterns-Begin
+		path('_', include(router_urls))
+		path('api_auth', include('rest_framework_urls', namespace='env'))
+	urlpatterns-End
+AppUrls-End
+
+Env-Begin
+	DEBUG: on #
+
+	TRABALHO_CC2_HOST: localhost
+	TRABALHO_CC2_PORT: 3306
+	TRABALHO_CC2_DB: mysquema
+	TRABALHO_CC2_USER: root
+	TRABALHO_CC2_PASS: 123
+Env-End
+
+Settings-Begin
+	import Path, environ
+	
+	EnvSetup-Begin
+		env: environ.Env( DEBUG=(bool, False) )
+		environ.Env.read_env()
+	EnvSetup-End
+	
+	AddVariables-Begin
+		SECRET_KEY: 'test1234'
+		
+		INSTALLED_APPS: ['rest_framework', 'game_lib.apps.GameLibConfig']
+	
+		REST_FRAMEWORK: {
+			'DEFAULT_PERMISSION_CLASSES': [
+				'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+			], 
+			'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+			'PAGE_SIZE': 10,
+		}
+		
+		DATABASES: {
+			'default': {
+				'ENGINE': mysql,
+				'NAME':	TRABALHO_CC2_DB,
+				'USER':	TRABALHO_CC2_USER,
+				'PASSWORD': TRABALHO_CC2_PASS,
+				'HOST': TRABALHO_CC2_HOST,
+				'PORT': TRABALHO_CC2_PORT
+			}
+		}
+	AddVariables-End
+Settings-End
+
+DefaultUrls-Begin
+	import admin, include, path, routers
+	
+	urlpatterns-Begin
+		path('game_lib/', include('game_lib.urls')),
+		path('admin/', admin.site.urls),
+		path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+	urlpatterns-End
+	
+DefaultUrls-End
