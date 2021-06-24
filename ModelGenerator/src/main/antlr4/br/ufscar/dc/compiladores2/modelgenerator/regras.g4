@@ -92,8 +92,8 @@ environ_call
 
 settings_vars /**/
     : 'SECRET_KEY' ':' '\'' IDENT '\''
-    'INSTALLED_APPS' ':' '[' '\'' IDENT '\'' (',' '\'' IDENT '\'' )*  ']' 
-    'REST_FRAMEWORK' ':' '{' '\'' 'DEFAULT_PERMISSION_CLASSES' '\'' ':' '[' ('\'' IDENT '\'')+ ']' ',' '\'' 'DEFAULT_PAGINATION_CLASS' '\'' ':' '\'' 'rest_framework_pagination_PageNumberPagination' '\'' ',' '\'' 'PAGE_SIZE' '\'' ':' NUM_INT ',' '}' databases
+    'INSTALLED_APPS' ':' '[' '\'' (modules | IDENT) '\'' (',' '\'' IDENT ('.' IDENT)* '\'' )*  ']' 
+    'REST_FRAMEWORK' ':' '{' '\'' 'DEFAULT_PERMISSION_CLASSES' '\'' ':' '[' ('\'' (modules | IDENT) ('.' (modules | IDENT) )* '\'')+ ']' ',' '\'' 'DEFAULT_PAGINATION_CLASS' '\'' ':' '\'' 'rest_framework.pagination.PageNumberPagination' '\'' ',' '\'' 'PAGE_SIZE' '\'' ':' NUM_INT ',' '}' databases
     ;
 
 databases
@@ -145,14 +145,14 @@ path_call
     ;
 
 path_params
-    : '\'' str=IDENT '\'' ',' parametros_ident
+    : '\'' (modules | IDENT ('-' IDENT)* ) '/'? '\'' ',' parametros_ident
     ;
 
 parametros_ident
-    : (IDENT | include_class)
+    : ((modules | IDENT) ('.' IDENT)* | include_class)
     ;
 include_class
-    : 'include' '(' '\''?  IDENT '\''? (',' 'namespace=' '\'' IDENT '\'' )? ')'
+    : 'include' '(' '\''?  (modules | IDENT) ('.' IDENT)* '\''? (',' 'namespace=' '\'' (modules | IDENT) '\'' )? ')'
     ;
 
 field /*Em desenvolv.*/
