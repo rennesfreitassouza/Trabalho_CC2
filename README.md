@@ -3,10 +3,9 @@
 ## 1.1 Como criar um projeto com o framework Django para uso do compilador ModelGenerator:
 
 * Requisitos para executar o compilador ModelGenerator e para criar e rodar o projeto Django Trabalho_CC2:
-   * [java JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox)
+   * [Java JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox)
    * [Python Interpreter](https://www.python.org/downloads/)
-   * [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) 
-     * (Durante a instalação do MySQL Community Server, definir usuário e senha para criar databases (ou schemas) locais).
+   * [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) (durante a instalação do MySQL Community Server, definir um usuário e uma senha para criar databases (ou schemas) locais).
  
 * Criar e usar um [ambiente de desenvolvimento](https://developer.mozilla.org/pt-BR/docs/Learn/Server-side/Django/development_environment#usando_django_em_um_ambiente_virtual_python):
   * Exemplos:
@@ -14,10 +13,12 @@
     * `workon my_django_env` (para usar o ambiente).
 
 * Instalar o framework Django e alguns módulos adicionais (para compatibilidade com os arquivos criados a partir do compilador ModelGenerator) nesse ambiente:
-  * Exemplo: `pip install Django django-allauth django-environ django-filter django-rest-framework djangorestframework mysqlclient`
+  * Exemplo:
+  * `pip install Django django-allauth django-environ django-filter django-rest-framework djangorestframework mysqlclient`
 
 * Criar um projeto Django com o nome Trabalho_CC2:
-  * Exemplo: `django-admin startproject Trabalho_CC2`
+  * Exemplo:
+  * `django-admin startproject Trabalho_CC2`
 
 * Acessar o diretório Trabalho_CC2 criado.
 
@@ -25,7 +26,8 @@
   * `python manage.py startapp game_lib`
 
 * Executar o compilador [ModelGenerator](https://github.com/rennesfreitassouza/Trabalho_CC2/blob/main/Compilador/ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar) a partir do java. Os argumentos de entrada para o ModelGenerator devem ser dois: o primero deve ser o caminho para [um arquivo de texto contendo código em ModelGenerator sem erros](https://raw.githubusercontent.com/rennesfreitassouza/Trabalho_CC2/main/Casos_de_teste/Lexico/caso_de_teste_1.txt) (para gerar arquivos válidos para o projeto Django Trabalho_CC2) e o segundo argumento que deve ser o caminho para o diretório raiz do projeto Django Trabalho_CC2 criado de acordo com este tutorial:
-  * Exemplo: `java -jar C:\ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar C:\Testes_lexico\caso_de_teste_1_ModelGenerator.txt C:\CC2\Trabalho_CC2\`
+  * Exemplo:
+  * `java -jar C:\ModelGenerator-1.0-SNAPSHOT-jar-with-dependencies.jar C:\Testes_lexico\caso_de_teste_1_ModelGenerator.txt C:\CC2\Trabalho_CC2\`
 
 ## 1.2 Tutorial para execução do projeto Django Trabalho_CC2:
 
@@ -33,14 +35,15 @@
 
 - Navegar até o diretório raiz do projeto Django Trabalho_CC2 via linha de comando.
 
-- Renomear o arquivo Trabalho_CC2\Trabalho_CC2\.env.example (criado a partir da execução do ModelGenerator) para .env
+- Renomear o arquivo Trabalho_CC2\Trabalho_CC2\.env.example (criado a partir da execução do ModelGenerator) para .env .
 
 - Criar um SCHEMA com o SQL shell MySQL:
-  - Abrir o MySQL 8.0 Command Line Client.
-  - Executar o comando neste shell:
+  - Exemplo:  
+    - Abrir o MySQL 8.0 Command Line Client.
+    - Executar o comando neste shell:
     - `CREATE DATABASE TESTE;`
 
-- Retornar ao arquivo Trabalho_CC2\Trabalho_CC2\.env e escrever os valores para as variáveis apresentadas de acordo com os valores do seu schema MySql.
+- Retornar ao arquivo Trabalho_CC2\Trabalho_CC2\.env e escrever os valores para as variáveis apresentadas de acordo com os valores que precisam ser definidos para criação de schemas MySQL.
 
 - Então, executar os comandos na raiz do projeto Django Trabalho_CC2:
   - python manage.py makemigrations game_lib
