@@ -10,19 +10,25 @@ public class GeradorSerializers extends regrasBaseVisitor<Void> {
 
     public GeradorSerializers() {
         saida = new StringBuilder();
+    }
 
+    @Override
+    public Void visitProgram(regrasParser.ProgramContext ctx) {
         saida.append("from rest_framework import serializers\n");
         saida.append("from .models import *\n");
         saida.append("\n");
+
+        visitModel(ctx.model());
+
+        return null;
     }
 
     @Override
     public Void visitEntity(regrasParser.EntityContext ctx) {
-        Token entityToken = ctx.IDENT().getSymbol();
+        Token entityToken = ctx.IDENTIFICADOR().getSymbol();
         String entityNome = entityToken.getText();
 
-        saida.append("class " + entityNome
-                + "Serializer(serializers.ModelSerializer):\n");
+        saida.append("class " + entityNome + "Serializer(serializers.ModelSerializer):\n");
         saida.append("\tclass Meta:\n");
         saida.append("\t\tmodel = " + entityNome + "\n");
         saida.append("\t\tfields = '__all__'\n");

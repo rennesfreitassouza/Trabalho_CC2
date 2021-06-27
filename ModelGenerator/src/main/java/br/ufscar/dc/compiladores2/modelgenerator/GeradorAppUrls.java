@@ -10,18 +10,18 @@ public class GeradorAppUrls extends regrasBaseVisitor<Void> {
 
     public GeradorAppUrls() {
         saida = new StringBuilder();
-
-        saida.append("from django.urls import include, path\n");
-        saida.append("from rest_framework import routers\n");
-        saida.append("from .views import *\n");
-        saida.append("\n");
     }
 
     @Override
     public Void visitProgram(regrasParser.ProgramContext ctx) {
+        saida.append("from django.urls import include, path\n");
+        saida.append("from rest_framework import routers\n");
+        saida.append("from .views import *\n");
+        saida.append("\n");
+
         saida.append("router = routers.DefaultRouter()\n");
 
-        super.visitProgram(ctx);
+        visitModel(ctx.model());
 
         saida.append("\n");
         saida.append("urlpatterns = [\n");
@@ -34,11 +34,11 @@ public class GeradorAppUrls extends regrasBaseVisitor<Void> {
 
     @Override
     public Void visitEntity(regrasParser.EntityContext ctx) {
-        Token entityToken = ctx.IDENT().getSymbol();
+        Token entityToken = ctx.IDENTIFICADOR().getSymbol();
         String entityNome = entityToken.getText();
 
-        saida.append("router.register(r'" + entityNome + "', "
-                + entityNome + "ViewSet)\n");
+        saida.append("router.register(r'" + entityNome + "', " + entityNome + "ViewSet)\n");
+
         return null;
     }
 }

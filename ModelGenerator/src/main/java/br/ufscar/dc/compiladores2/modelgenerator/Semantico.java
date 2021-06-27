@@ -15,7 +15,7 @@ public class Semantico extends regrasBaseVisitor<Void> {
 
     @Override
     public Void visitEntity(regrasParser.EntityContext ctx) {
-        Token entityToken = ctx.IDENT().getSymbol();
+        Token entityToken = ctx.IDENTIFICADOR().getSymbol();
         String entityNome = entityToken.getText();
 
         if (escopo.existe(entityNome)) {
@@ -33,8 +33,7 @@ public class Semantico extends regrasBaseVisitor<Void> {
 
     @Override
     public Void visitField(regrasParser.FieldContext ctx) {
-        Token fieldToken = ctx.fieldName;
-        Token modelToken = ctx.otherModelName;
+        Token fieldToken = ctx.IDENTIFICADOR(0).getSymbol();
         String fieldNome = fieldToken.getText();
 
         if (escopo.existe(fieldNome)) {
@@ -43,7 +42,8 @@ public class Semantico extends regrasBaseVisitor<Void> {
         } else {
             escopo.adicionarField(fieldNome);
 
-            if (modelToken != null) {
+            if (ctx.IDENTIFICADOR(1) != null) {
+                Token modelToken = ctx.IDENTIFICADOR(1).getSymbol();
                 String modelNome = modelToken.getText();
 
                 // Reporta erro caso o field seja declarado utilizando um novo

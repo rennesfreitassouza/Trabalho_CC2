@@ -8,7 +8,10 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
 
     public GeradorSettings() {
         saida = new StringBuilder();
+    }
 
+    @Override
+    public Void visitProgram(regrasParser.ProgramContext ctx) {
         saida.append("from pathlib import Path\n");
         saida.append("import environ\n");
         saida.append("\n");
@@ -111,5 +114,7 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("USE_TZ = True\n");
         saida.append("STATIC_URL = '/static/'\n");
         saida.append("DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\n");
+
+        return null;
     }
 }
