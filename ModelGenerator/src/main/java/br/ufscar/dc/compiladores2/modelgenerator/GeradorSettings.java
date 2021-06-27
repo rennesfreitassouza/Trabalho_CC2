@@ -29,7 +29,7 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("\t'django.contrib.messages',\n");
         saida.append("\t'django.contrib.staticfiles',\n");
         saida.append("\t'rest_framework',\n");
-        saida.append("\t'game_lib.apps.GameLibConfig',\n");
+        saida.append("\t'app.apps.AppConfig',\n");
         saida.append("]\n");
         saida.append("\n");
 
@@ -53,7 +53,7 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("]\n");
         saida.append("\n");
 
-        saida.append("ROOT_URLCONF = 'Trabalho_CC2.urls'\n");
+        saida.append("ROOT_URLCONF = 'mysite.urls'\n");
         saida.append("\n");
 
         saida.append("TEMPLATES = [\n");
@@ -73,17 +73,17 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("]\n");
         saida.append("\n");
 
-        saida.append("WSGI_APPLICATION = 'Trabalho_CC2.wsgi.application'\n");
+        saida.append("WSGI_APPLICATION = 'mysite.wsgi.application'\n");
         saida.append("\n");
 
         saida.append("DATABASES = {\n");
         saida.append("\t'default': {\n");
         saida.append("\t\t'ENGINE': 'django.db.backends.mysql',\n");
-        saida.append("\t\t'NAME': env.str('TRABALHO_CC2_DB'),\n");
-        saida.append("\t\t'USER': env.str('TRABALHO_CC2_USER'),\n");
-        saida.append("\t\t'PASSWORD': env.str('TRABALHO_CC2_PASS'),\n");
-        saida.append("\t\t'HOST': env.str('TRABALHO_CC2_HOST'),\n");
-        saida.append("\t\t'PORT': env.str('TRABALHO_CC2_PORT')\n");
+        saida.append("\t\t'NAME': env.str('MYSITE_DB'),\n");
+        saida.append("\t\t'USER': env.str('MYSITE_USER'),\n");
+        saida.append("\t\t'PASSWORD': env.str('MYSITE_PASS'),\n");
+        saida.append("\t\t'HOST': env.str('MYSITE_HOST'),\n");
+        saida.append("\t\t'PORT': env.str('MYSITE_PORT')\n");
         saida.append("\t}\n");
         saida.append("}\n");
         saida.append("\n");

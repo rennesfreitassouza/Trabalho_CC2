@@ -81,43 +81,43 @@ public class Principal {
 
                 // Impressão dos códigos nos respectivos arquivos.
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/game_lib/models.py")) {
+                        + "/app/models.py")) {
                     pw.print(models.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/game_lib/serializers.py")) {
+                        + "/app/serializers.py")) {
                     pw.print(serializers.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/game_lib/views.py")) {
+                        + "/app/views.py")) {
                     pw.print(views.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/game_lib/urls.py")) {
+                        + "/app/urls.py")) {
                     pw.print(appUrls.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/Trabalho_CC2/.env.example")) {
+                        + "/mysite/.env")) {
                     pw.print(env.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/Trabalho_CC2/settings.py")) {
+                        + "/mysite/settings.py")) {
                     pw.print(settings.saida.toString());
                     pw.close();
                 }
 
                 try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/Trabalho_CC2/urls.py")) {
+                        + "/mysite/urls.py")) {
                     pw.print(defaultUrls.saida.toString());
                     pw.close();
                 }

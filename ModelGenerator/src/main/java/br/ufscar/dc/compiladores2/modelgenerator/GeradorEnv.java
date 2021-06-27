@@ -10,10 +10,10 @@ public class GeradorEnv extends regrasBaseVisitor<Void> {
         saida = new StringBuilder();
         
         saida.append("DEBUG=on\n");
-        saida.append("TRABALHO_CC2_HOST=localhost\n");
-        saida.append("TRABALHO_CC2_PORT=3306\n");
-        saida.append("TRABALHO_CC2_DB=mysquema\n");
-        saida.append("TRABALHO_CC2_USER=root\n");
-        saida.append("TRABALHO_CC2_PASS=123\n");
+        saida.append("MYSITE_HOST=localhost\n");
+        saida.append("MYSITE_PORT=3306\n");
+        saida.append("MYSITE_DB=mysquema\n");
+        saida.append("MYSITE_USER=root\n");
+        saida.append("MYSITE_PASS=123\n");
     }
 }
