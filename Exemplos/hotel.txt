@@ -1,0 +1,29 @@
+# Algoritmo para a criação de um sistema de locação de quartos.
+
+Config-Begin
+	SITE: hotel
+	APP: locacao
+Config-End
+
+Model-Begin
+	Entity-Begin Hotel
+		name: string
+	Entity-End
+	
+	Entity-Begin Quarto
+		capacidade: int
+		hotel: Hotel
+	Entity-End
+
+	Entity-Begin Reserva
+		quarto: Quarto
+		inicio: date
+		fim: date
+	Entity-End
+Model-End
+
+Env-Begin
+	DB: hotel_schema
+	USER: root
+	PASS: test1234
+Env-End

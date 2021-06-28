@@ -16,7 +16,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'rest_framework',
-	'game_lib.apps.GameLibConfig',
+	'gamelib.apps.GamelibConfig',
 ]
 
 REST_FRAMEWORK = {
@@ -37,7 +37,7 @@ MIDDLEWARE = [
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Trabalho_CC2.urls'
+ROOT_URLCONF = 'games.urls'
 
 TEMPLATES = [
 	{
@@ -55,16 +55,16 @@ TEMPLATES = [
 	},
 ]
 
-WSGI_APPLICATION = 'Trabalho_CC2.wsgi.application'
+WSGI_APPLICATION = 'games.wsgi.application'
 
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
-		'NAME': env.str('TRABALHO_CC2_DB'),
-		'USER': env.str('TRABALHO_CC2_USER'),
-		'PASSWORD': env.str('TRABALHO_CC2_PASS'),
-		'HOST': env.str('TRABALHO_CC2_HOST'),
-		'PORT': env.str('TRABALHO_CC2_PORT')
+		'NAME': env.str('GAMES_DB'),
+		'USER': env.str('GAMES_USER'),
+		'PASSWORD': env.str('GAMES_PASS'),
+		'HOST': env.str('GAMES_HOST'),
+		'PORT': env.str('GAMES_PORT')
 	}
 }
 

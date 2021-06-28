@@ -1,7 +1,7 @@
 # Algoritmo para a criação de uma biblioteca de jogos.
 
 Config-Begin
-	SITE: mysite
+	SITE: games
 	APP: gamelib
 Config-End
 
@@ -24,7 +24,7 @@ Model-Begin
 Model-End
 
 Env-Begin
-	DB: TESTE
+	DB: gamelib_schema
 	USER: root
 	PASS: test1234
 Env-End
