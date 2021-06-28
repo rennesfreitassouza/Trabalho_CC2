@@ -1,0 +1,19 @@
+Model-Begin
+
+	
+		name: string(max_length=255, unique) # fields declarados fora de Entity.
+		publisher: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Platforms
+		name: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games
+		platform: Platforms
+		releasedate: date
+		version: int
+	Entity-End
+
+Model-End

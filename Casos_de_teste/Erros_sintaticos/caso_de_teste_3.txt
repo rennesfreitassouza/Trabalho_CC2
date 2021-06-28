@@ -1,0 +1,19 @@
+Model-Begin
+
+	Entity-Begin Game
+		name: string(max_length=255, unique)
+		publisher: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Platforms
+		name: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games
+		platform: Platforms
+		releasedate: date
+		version: #  field declarado sem tipo.
+	Entity-End
+
+Model-End

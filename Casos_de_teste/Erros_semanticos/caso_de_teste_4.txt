@@ -1,0 +1,19 @@
+Model-Begin
+
+	Entity-Begin Games
+		name: string(max_length=255, unique)
+		publisher: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Platforms
+		name: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games # identificador utilizado como tipo.
+		platform: Platforms
+		releasedate: date
+		version: int
+	Entity-End
+
+Model-End
