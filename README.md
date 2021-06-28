@@ -1,4 +1,36 @@
-## 1. Como criar um projeto com o framework Django para uso do compilador ModelGenerator
+## 1. Exemplo de algoritmo para a criação de uma biblioteca de jogos que será utilizado nesse tutorial
+```
+Config-Begin
+	SITE: games
+	APP: gamelib
+Config-End
+
+Model-Begin	
+	Entity-Begin Games
+		name: string(max_length=255, unique)
+		publisher: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Platforms
+		name: string(max_length=255, unique)
+	Entity-End
+
+	Entity-Begin Releases
+		game: Games
+		platform: Platforms
+		releasedate: date
+		version: int
+	Entity-End
+Model-End
+
+Env-Begin
+	DB: gamelib_schema
+	USER: root
+	PASS: test1234
+Env-End
+```
+
+## 2. Como criar um projeto com o framework Django para uso do compilador ModelGenerator
 
 * Requisitos para executar o compilador ModelGenerator e para criar e rodar o projeto:
    * [Java JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox)
@@ -27,7 +59,7 @@
    * Exemplo:
      * `java -jar ModelGenerator.jar Exemplos\gamelib.txt Exemplos\games\`
 
-## 2. Tutorial para execução do projeto Django
+## 3. Tutorial para execução do projeto Django
 
 - Navegar até o diretório raiz do projeto Django via linha de comando.
 
