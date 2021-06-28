@@ -33,7 +33,7 @@ ERRO_SIMBOLO
 /* _____Análise Sintática_____ */
 
 program
-:   config? model? database? EOF
+:   config? model database? EOF
 ;
 
 config
