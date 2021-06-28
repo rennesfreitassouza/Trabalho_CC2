@@ -18,7 +18,7 @@ NUMERO
 
 /* Expressão regular definida para reconhecer identificadores */
 IDENTIFICADOR
-:   ('a'..'z' | 'A'..'W' | 'Y'..'Z') ('a'..'z' | 'A'..'W' | 'Y'..'Z' | '0'..'9')*
+:   ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '-' | '0'..'9')*
 ;
 
 
@@ -61,7 +61,9 @@ field
 ;
 
 tipo_basico
-:   'int' | 'string' | 'date'
+:   'int'
+|   'string'
+|   'date'
 ;
 
 parameter
