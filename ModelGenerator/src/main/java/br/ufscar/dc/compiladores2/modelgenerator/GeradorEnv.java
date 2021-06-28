@@ -29,7 +29,9 @@ public class GeradorEnv extends regrasBaseVisitor<Void> {
 
     @Override
     public Void visitProgram(regrasParser.ProgramContext ctx) {
-        visitDatabase(ctx.database());
+        if (ctx.database() != null) {
+            visitDatabase(ctx.database());
+        }
 
         saida.append("DEBUG=on\n");
         saida.append(site.toUpperCase() + "_HOST=" + host + "\n");

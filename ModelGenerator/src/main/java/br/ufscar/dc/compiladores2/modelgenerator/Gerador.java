@@ -24,9 +24,11 @@ public class Gerador extends regrasBaseVisitor<Void> {
     }
 
     @Override
-    public Void visitProgram(regrasParser.ProgramContext arvore) throws RuntimeException {
-        visitConfig(arvore.config());
-
+    public Void visitProgram(regrasParser.ProgramContext arvore) {
+        if (arvore.config() != null) {
+            visitConfig(arvore.config());
+        }
+        
         // Instanciar as classe para a geração dos arquivos.
         models = new GeradorModels(site, app);
         serializers = new GeradorSerializers(site, app);
