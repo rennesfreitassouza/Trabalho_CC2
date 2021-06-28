@@ -2,6 +2,9 @@ package br.ufscar.dc.compiladores2.modelgenerator;
 
 public class GeradorEnv extends regrasBaseVisitor<Void> {
 
+    String site;
+    String app;
+
     // Para construir o código python, será usado a classe StringBuilder. O
     // objeto saida do tipo StringBuilder é um acumulador de Strings.
     StringBuilder saida;
@@ -12,7 +15,9 @@ public class GeradorEnv extends regrasBaseVisitor<Void> {
     String user;
     String pass;
 
-    public GeradorEnv() {
+    public GeradorEnv(String s, String p) {
+        site = s;
+        app = p;
         saida = new StringBuilder();
 
         host = "localhost";
@@ -27,11 +32,11 @@ public class GeradorEnv extends regrasBaseVisitor<Void> {
         visitDatabase(ctx.database());
 
         saida.append("DEBUG=on\n");
-        saida.append("MYSITE_HOST=" + host + "\n");
-        saida.append("MYSITE_PORT=" + port + "\n");
-        saida.append("MYSITE_DB=" + db + "\n");
-        saida.append("MYSITE_USER=" + user + "\n");
-        saida.append("MYSITE_PASS=" + pass + "\n");
+        saida.append(site.toUpperCase() + "_HOST=" + host + "\n");
+        saida.append(site.toUpperCase() + "_PORT=" + port + "\n");
+        saida.append(site.toUpperCase() + "_DB=" + db + "\n");
+        saida.append(site.toUpperCase() + "_USER=" + user + "\n");
+        saida.append(site.toUpperCase() + "_PASS=" + pass + "\n");
 
         return null;
     }

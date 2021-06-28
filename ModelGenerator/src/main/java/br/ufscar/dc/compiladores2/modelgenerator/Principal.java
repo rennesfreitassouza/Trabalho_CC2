@@ -58,69 +58,14 @@ public class Principal {
                 System.out.println("Fim da compilacao");
             } else {
                 // Caso não haja erros semânticos, prosseguir com a geração do
-                // código.                
+                // código.
                 
-                // Instanciar as classe para gerar os arquivos.
-                GeradorModels models = new GeradorModels();
-                GeradorSerializers serializers = new GeradorSerializers();
-                GeradorVIews views = new GeradorVIews();
-                GeradorAppUrls appUrls = new GeradorAppUrls();
-                GeradorEnv env = new GeradorEnv();
-                GeradorSettings settings = new GeradorSettings();
-                GeradorDefaultUrls defaultUrls = new GeradorDefaultUrls();
-
+                // Instanciar a classe para gerar os arquivos.
+                Gerador gerador = new Gerador(args[1]);
+                
                 // Reutilização da árvore sintática para gerar o código dos
                 // arquivos.
-                models.visitProgram(arvore);
-                serializers.visitProgram(arvore);
-                views.visitProgram(arvore);
-                appUrls.visitProgram(arvore);
-                env.visitProgram(arvore);
-                settings.visitProgram(arvore);
-                defaultUrls.visitProgram(arvore);
-
-                // Impressão dos códigos nos respectivos arquivos.
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/app/models.py")) {
-                    pw.print(models.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/app/serializers.py")) {
-                    pw.print(serializers.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/app/views.py")) {
-                    pw.print(views.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/app/urls.py")) {
-                    pw.print(appUrls.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/mysite/.env")) {
-                    pw.print(env.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/mysite/settings.py")) {
-                    pw.print(settings.saida.toString());
-                    pw.close();
-                }
-
-                try ( PrintWriter pw = new PrintWriter(args[1]
-                        + "/mysite/urls.py")) {
-                    pw.print(defaultUrls.saida.toString());
-                    pw.close();
-                }
+                gerador.visitProgram(arvore);
 
                 System.out.println("Compilado com sucesso");
             }

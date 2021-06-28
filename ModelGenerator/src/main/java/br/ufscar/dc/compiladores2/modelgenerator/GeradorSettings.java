@@ -2,11 +2,16 @@ package br.ufscar.dc.compiladores2.modelgenerator;
 
 public class GeradorSettings extends regrasBaseVisitor<Void> {
 
+    String site;
+    String app;
+
     // Para construir o código python, será usado a classe StringBuilder. O
     // objeto saida do tipo StringBuilder é um acumulador de Strings.
     StringBuilder saida;
 
-    public GeradorSettings() {
+    public GeradorSettings(String s, String p) {
+        site = s;
+        app = p;
         saida = new StringBuilder();
     }
 
@@ -32,7 +37,7 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("\t'django.contrib.messages',\n");
         saida.append("\t'django.contrib.staticfiles',\n");
         saida.append("\t'rest_framework',\n");
-        saida.append("\t'app.apps.AppConfig',\n");
+        saida.append("\t'" + app + ".apps." + app.substring(0, 1).toUpperCase() + app.substring(1) + "Config',\n");
         saida.append("]\n");
         saida.append("\n");
 
@@ -56,7 +61,7 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("]\n");
         saida.append("\n");
 
-        saida.append("ROOT_URLCONF = 'mysite.urls'\n");
+        saida.append("ROOT_URLCONF = '" + site + ".urls'\n");
         saida.append("\n");
 
         saida.append("TEMPLATES = [\n");
@@ -76,17 +81,17 @@ public class GeradorSettings extends regrasBaseVisitor<Void> {
         saida.append("]\n");
         saida.append("\n");
 
-        saida.append("WSGI_APPLICATION = 'mysite.wsgi.application'\n");
+        saida.append("WSGI_APPLICATION = '" + site + ".wsgi.application'\n");
         saida.append("\n");
 
         saida.append("DATABASES = {\n");
         saida.append("\t'default': {\n");
         saida.append("\t\t'ENGINE': 'django.db.backends.mysql',\n");
-        saida.append("\t\t'NAME': env.str('MYSITE_DB'),\n");
-        saida.append("\t\t'USER': env.str('MYSITE_USER'),\n");
-        saida.append("\t\t'PASSWORD': env.str('MYSITE_PASS'),\n");
-        saida.append("\t\t'HOST': env.str('MYSITE_HOST'),\n");
-        saida.append("\t\t'PORT': env.str('MYSITE_PORT')\n");
+        saida.append("\t\t'NAME': env.str('" + site.toUpperCase() + "_DB'),\n");
+        saida.append("\t\t'USER': env.str('" + site.toUpperCase() + "_USER'),\n");
+        saida.append("\t\t'PASSWORD': env.str('" + site.toUpperCase() + "_PASS'),\n");
+        saida.append("\t\t'HOST': env.str('" + site.toUpperCase() + "_HOST'),\n");
+        saida.append("\t\t'PORT': env.str('" + site.toUpperCase() + "_PORT')\n");
         saida.append("\t}\n");
         saida.append("}\n");
         saida.append("\n");

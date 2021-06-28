@@ -33,7 +33,19 @@ ERRO_SIMBOLO
 /* _____Análise Sintática_____ */
 
 program
-:   model database EOF
+:   config? model? database? EOF
+;
+
+config
+:   'Config-Begin' site? app? 'Config-End'
+;
+
+site
+:   'SITE' ':' IDENTIFICADOR
+;
+
+app
+:   'APP' ':' IDENTIFICADOR
 ;
 
 model

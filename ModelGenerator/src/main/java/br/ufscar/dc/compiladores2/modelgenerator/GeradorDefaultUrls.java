@@ -2,11 +2,16 @@ package br.ufscar.dc.compiladores2.modelgenerator;
 
 public class GeradorDefaultUrls extends regrasBaseVisitor<Void> {
 
+    String site;
+    String app;
+
     // Para construir o código python, será usado a classe StringBuilder. O
     // objeto saida do tipo StringBuilder é um acumulador de Strings.
     StringBuilder saida;
 
-    public GeradorDefaultUrls() {
+    public GeradorDefaultUrls(String s, String p) {
+        site = s;
+        app = p;
         saida = new StringBuilder();
     }
 
@@ -18,7 +23,7 @@ public class GeradorDefaultUrls extends regrasBaseVisitor<Void> {
         saida.append("\n");
 
         saida.append("urlpatterns = [\n");
-        saida.append("\tpath('app/', include('app.urls')),\n");
+        saida.append("\tpath('" + app + "/', include('" + app + ".urls')),\n");
         saida.append("\tpath('admin/', admin.site.urls),\n");
         saida.append("\tpath('api-auth/', include('rest_framework.urls', namespace='rest_framework'))\n");
         saida.append("]\n");

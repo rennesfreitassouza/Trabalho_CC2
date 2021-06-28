@@ -4,11 +4,16 @@ import org.antlr.v4.runtime.Token;
 
 public class GeradorVIews extends regrasBaseVisitor<Void> {
 
+    String site;
+    String app;
+
     // Para construir o código python, será usado a classe StringBuilder. O
     // objeto saida do tipo StringBuilder é um acumulador de Strings.
     StringBuilder saida;
 
-    public GeradorVIews() {
+    public GeradorVIews(String s, String p) {
+        site = s;
+        app = p;
         saida = new StringBuilder();
     }
 
