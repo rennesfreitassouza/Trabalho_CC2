@@ -1,0 +1,34 @@
+# Algoritmo para a criação de um sistema para uma universidade.
+
+Config-Begin
+	SITE: universidade
+	APP: curso
+Config-End
+
+Model-Begin
+	Entity-Begin Curso
+		codigo: string
+		nome: string
+		duracao: int
+	Entity-End
+	
+	Entity-Begin Aluno
+		RA: int
+		nome: string
+		endereco: string
+		curso: Curso
+	Entity-End
+
+	Entity-Begin Disciplina
+		codigo: string
+		nome: string
+		descricao: string
+		curso: Curso
+	Entity-End
+Model-End
+
+Env-Begin
+	DB: curso_schema
+	USER: root
+	PASS: test1234
+Env-End
