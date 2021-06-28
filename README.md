@@ -1,4 +1,4 @@
-# 1. Como criar um projeto com o framework Django para uso do compilador ModelGenerator
+## 1. Como criar um projeto com o framework Django para uso do compilador ModelGenerator
 
 * Requisitos para executar o compilador ModelGenerator e para criar e rodar o projeto:
    * [Java JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox)
@@ -27,7 +27,7 @@
    * Exemplo:
      * `java -jar ModelGenerator.jar Exemplos\gamelib.txt Exemplos\games\`
 
-# 2 Tutorial para execução do projeto Django
+## 2. Tutorial para execução do projeto Django
 
 - Navegar até o diretório raiz do projeto Django via linha de comando.
 
