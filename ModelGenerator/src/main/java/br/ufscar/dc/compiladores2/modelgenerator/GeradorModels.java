@@ -11,6 +11,8 @@ public class GeradorModels extends regrasBaseVisitor<Void> {
     // objeto saida do tipo StringBuilder é um acumulador de Strings.
     StringBuilder saida;
 
+    boolean isString;
+
     public GeradorModels(String s, String p) {
         site = s;
         app = p;
@@ -52,7 +54,14 @@ public class GeradorModels extends regrasBaseVisitor<Void> {
             visitTipo_basico(ctx.tipo_basico());
 
             saida.append("(");
+
+            boolean hasMaxLength = false;
+
             for (regrasParser.ParameterContext parameter : ctx.parameter()) {
+                if (parameter.NUMERO() != null) {
+                    hasMaxLength = true;
+                }
+
                 visitParameter(parameter);
 
                 if (ctx.parameter().indexOf(parameter)
@@ -60,6 +69,15 @@ public class GeradorModels extends regrasBaseVisitor<Void> {
                     saida.append(", ");
                 }
             }
+
+            if (isString && !hasMaxLength) {
+                if (ctx.parameter().size() > 0) {
+                    saida.append(", ");
+                }
+
+                saida.append("max_length=255");
+            }
+
             saida.append(")\n");
 
         } else {
@@ -76,9 +94,16 @@ public class GeradorModels extends regrasBaseVisitor<Void> {
     public Void visitTipo_basico(regrasParser.Tipo_basicoContext ctx) {
         if (ctx.getText().equals("int")) {
             saida.append("models.IntegerField");
-        } else if (ctx.getText().equals("string")) {
+        }
+
+        if (ctx.getText().equals("string")) {
             saida.append("models.CharField");
-        } else if (ctx.getText().equals("date")) {
+            isString = true;
+        } else {
+            isString = false;
+        }
+
+        if (ctx.getText().equals("date")) {
             saida.append("models.DateTimeField");
         }
         return null;
@@ -87,9 +112,11 @@ public class GeradorModels extends regrasBaseVisitor<Void> {
     @Override
     public Void visitParameter(regrasParser.ParameterContext ctx) {
         if (ctx.NUMERO() != null) {
-            saida.append("max_length = " + ctx.NUMERO().getText());
-        } else if (ctx.unique != null) {
-            saida.append("unique = True");
+            saida.append("max_length=" + ctx.NUMERO().getText());
+        }
+
+        if (ctx.unique != null) {
+            saida.append("unique=True");
         }
         return null;
     }
