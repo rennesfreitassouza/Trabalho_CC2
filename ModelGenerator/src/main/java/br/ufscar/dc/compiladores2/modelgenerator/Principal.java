@@ -5,7 +5,6 @@
 package br.ufscar.dc.compiladores2.modelgenerator;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -59,10 +58,10 @@ public class Principal {
             } else {
                 // Caso não haja erros semânticos, prosseguir com a geração do
                 // código.
-                
+
                 // Instanciar a classe para gerar os arquivos.
                 Gerador gerador = new Gerador(args[1]);
-                
+
                 // Reutilização da árvore sintática para gerar o código dos
                 // arquivos.
                 gerador.visitProgram(arvore);
