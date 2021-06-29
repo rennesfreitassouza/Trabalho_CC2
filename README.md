@@ -67,7 +67,7 @@ Env-End
 
 ## 3. Tutorial para execução do projeto Django
 
-- Criar um SCHEMA com, por exemplo, o SQL shell MySQL, utilizando as mesmas configurações definidas no código, na seção `Env`:
+- Criar um SCHEMA com, por exemplo, o SQL shell MySQL. Para o nome do database e dados do usuário, utilizar os mesmos valores que os das variáveis definidas no final do código deste tutorial, na seção `Env-Begin` `Env-End`:
     - Executar o comando neste shell:
     - `CREATE DATABASE gamelib_schema;`
 
