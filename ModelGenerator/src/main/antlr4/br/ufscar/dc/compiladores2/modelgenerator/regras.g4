@@ -11,6 +11,10 @@ ESPACO
 :   (' ' | '\t' | '\n') -> skip
 ;
 
+WIN
+:   ('\r') -> skip
+;
+
 /* Expressão regular definida para reconhecer números inteiros */
 NUMERO
 :   ('0'..'9')+
@@ -33,7 +37,7 @@ ERRO_SIMBOLO
 /* _____Análise Sintática_____ */
 
 program
-:   config? model database? EOF
+:   config model? database? EOF
 ;
 
 config

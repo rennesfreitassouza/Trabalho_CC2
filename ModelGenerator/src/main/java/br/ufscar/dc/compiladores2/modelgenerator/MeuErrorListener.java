@@ -22,7 +22,10 @@ public class MeuErrorListener extends BaseErrorListener {
         // String contendo a mensagem de erro.
         String errorMessage = "Erro identificado: Linha " + line
                 + " - erro próximo a \"" + errorTokenString + "\"";
-
+        
+        if (!msg.equals(null)){
+            System.out.println(msg);
+        }
         // Lançamento de uma RuntimeExcpetion com a mensagem de erro.
         throw new RuntimeException(errorMessage);
     }
