@@ -1,0 +1,34 @@
+# Algoritmo para a criação de uma biblioteca de escolas.
+
+Config-Begin
+	SITE: escola
+	APP: escolalib
+Config-End
+
+Model-Begin	
+	Entity-Begin Curso
+		codigo: int
+		nome: string(max_length=255, unique)
+		duracao: int
+	Entity-End
+
+	Entity-Begin Aluno
+		RA: int
+		nome: string(max_length=255, unique)
+		endereco: string(max_length=255, unique)
+		curso: Curso
+	Entity-End
+
+	Entity-Begin Disciplina
+		codigo: int
+		nome: string(max_length=255, unique)
+		descricao: string(max_length=255, unique)
+		curso: Curso
+	Entity-End
+Model-End
+
+Env-Begin
+	DB: escolalib_schema
+	USER: root
+	PASS: test1234
+Env-End
