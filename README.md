@@ -67,13 +67,9 @@ Env-End
 
 ## 3. Tutorial para execução do projeto Django
 
-- Criar um SCHEMA com, por exemplo, o SQL shell MySQL:
+- Criar um SCHEMA com, por exemplo, o SQL shell MySQL, utilizando as mesmas configurações definidas no código, na seção `Env`:
     - Executar o comando neste shell:
     - `CREATE DATABASE gamelib_schema;`
-
-- Navegar até o diretório do seu app Django e editar o arquivo `.env`.
-
-- Para cada variável apresentada, trocar os valores padrão por aqueles definidos para o seu banco de dados MySQL.
 
 - Executar os seguintes comandos na raiz do projeto Django. Neste exemplo, os comandos foram escritos para o mesmo projeto Django games:
   - `python manage.py makemigrations gamelib` ou `python manage.py makemigrations escolalib`
